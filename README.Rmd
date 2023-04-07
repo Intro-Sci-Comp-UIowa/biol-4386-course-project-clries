@@ -1,14 +1,58 @@
-# biol-4386-course-project-clries
-biol-4386-course-project-clries created by GitHub Classroom
+---
+title: "README.Rmd"
+author: "Courtney Ries"
+date: '2023-03-23'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+
+
 ### Introduction
 "What do you want to be when you grow up?"--it's a question we are asked in childhood that can be equally difficult to answer as an adult. Choosing an enjoyable career is a difficult task for many people, and this can be multipled for those with mental disorders. Perhaps, one may gain insight about an ideal career from particular qualities they possess. For example, someone who enjoys a high level of control may be more likely to choose and enjoy a career as an manager than a lower level position. Several studies have shown an association between psychiatric disorders and careers. One of the most famous links authors with an increased risk of a variety of diagnoses including schizophrenia and bipolar disorder.^1^ A recent study also suggests that musicianship may share underlying genetic or environmental factors with mental health problems.^2^ This project will be an exploratory analysis investigating whether genetic aptitude for a particular trait, specifically loneliness, risk tolerance, or cognitive performance, has any association with job choice and/or satisfaction.
 
 
 ### Figure
 
-```{r}
-knitr::include_graphics("C:/Users/court/Pictures/cforb_project_hw1.png")
+```{r plot prep, include = F}
+library(tidyverse)
+risktol = read_tsv('/wdata/cries/career_proj/biol-4386-course-project-clries_backup/data/input_data/LDPred2/adhd-PGC-2019ancestry_adjusted_pgs.tsv')
+
+jobdat = read_tsv('/wdata/cries/career_proj/biol-4386-course-project-clries_backup/data/input_data/ukb_job_data.tsv')
+
+map = read_tsv('/wdata/lcasten/ukbb/imaging/field.tsv')
+
+to_match = names(jobdat)[str_detect(names(jobdat), pattern = '[0-9]')]
+df_match = data.frame(original_variable = to_match) %>%
+  mutate(num = str_sub(original_variable, start = 2, end = -1),
+         num = str_split(num, pattern = '_', simplify = T)[,1],
+         field_id = as.numeric(num))
+clergy = jobdat %>%
+  mutate(clergy_binary = case_when(job == 'clergyman/woman; any religious officer/leader' ~ 1,
+                                  TRUE ~ 0)
+  ) %>%
+  rename(IID = eid)
+table(clergy$clergy_binary)
+
+wd_clergy = risktol %>%
+  inner_join(clergy)
 ```
+
+
+```{r plot}
+wd_clergy %>%
+  ggplot(aes(x = as.factor(clergy_binary), y = resid_pgs)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 0, color = 'red') +
+  labs(title = 'Genetic Propensity for Risk Tolerance in Religious Leaders',
+       x = 'Job', y = 'Risk Tolerance PGS') +
+  theme(text = element_text(size = 25), axis.text = element_text(size = 20)) +
+  scale_x_discrete(breaks=c('0','1'), labels=c('all jobs', 'religious leader'))
+t.test(wd_clergy$resid_pgs ~ wd_clergy$clergy_binary) 
+```
+
 
 This figure is an example of a box plot I created comparing the polygenic 
 scores for risk tolerance in religious leaders versus the entire employed 
