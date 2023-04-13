@@ -9,78 +9,21 @@ output:
 
 
 
+##Introduction
 
-### Introduction
-"What do you want to be when you grow up?"--it's a question we are asked in childhood that can be equally difficult to answer as an adult. Choosing an enjoyable career is a difficult task for many people, and this can be multipled for those with mental disorders. Perhaps, one may gain insight about an ideal career from particular qualities they possess. For example, someone who enjoys a high level of control may be more likely to choose and enjoy a career as an manager than a lower level position. Several studies have shown an association between psychiatric disorders and careers. One of the most famous links authors with an increased risk of a variety of diagnoses including schizophrenia and bipolar disorder.^1^ A recent study also suggests that musicianship may share underlying genetic or environmental factors with mental health problems.^2^ This project will be an exploratory analysis investigating whether genetic aptitude for a particular trait, specifically loneliness, risk tolerance, or cognitive performance, has any association with job choice and/or satisfaction.
+Creativity and bipolar disorder have had a long history of association. Many famous writers and other 'geniuses' such as Sylvia Plath and Vincent Van Gough are suspected to have had mood disorders based on anecdotal accounts of their lives. One of the first empirical studies of their relationship, spearheaded by former UI researcher Nancy Andreasen, found significantly higher rates of bipolar disorder in participants of the acclaimed Iowa Writer's Workshop compared to a control group.^1 Previous research has defined a person as 'creative' in several ways--membership in a creative organization, recognition for a creative acheivement, or most commonly, holding an arbitrarily defined "creative profession." Each of these definitions has been useful in determining the shared genetic basis of creativity and bipolar disorder.^2 Yet, these studies have failed to ask a fundamental question: are these people happier in their creative careers than elsewhere? This project will investigate the association between polygenic risk for bipolar disorder and job satisfaction in creative careers.Polygenic scores for bipolar disorder will be used for a number of reasons. First, preexisting data on cohorts with diagnosed bipolar disorderis limited. For example, twin studies, which may be a better indicator of the genetic basis between the two, are small-scale and therefore not as well-powered. Not only does the UKBiobank allow us to assess their association on a larger scale through the use of polygenic risk scores, it also gives job data which can be easily categorized as creative or non-creative, as well as job satisfaction data. Previous studies have also shown that the common genetic risk variants identified in bipolar disorder GWAS overlap with those that influence creativity.^2 These reasons make polygenic risk scores a better choice for this project.
 
+##Methods
 
-### Figure
+Job type, job satisfaction, and genotype data were collected from 32,346 individuals selected from the UKBiobank. The criteria for selection was employment at the approximate time of the job satisfaction survey (2008). These individuals were genotyped using the UKBiobank Axiom array. Genotypes were then imputed using the Haplotype Reference Consortium (HRC) and UK10K haplotype resource. Polygenic scores were calculated from genotypes using LDPred2 and were weighted using publicly available summary statistics from the most recent bipolar disorder GWAS.^3 "Creative" careers were defined as the narrowly defined artistic professions (architects, draughtspersons, artists, authors/writers, actors/entertainers, dancers and choreographers, and musicians) as determined in Kim et. al.^4 (Still determining how to define a non-creative career--the Kim et al paper would have had fantastic resources if they had published their supplementary material with their preprint.) Using ggplot, I will create two figures with the bipolar PGS on the x-axis and job satisfaction on the y-axis. The first will be limited to the seven most creative careers, and the second, the least creative. A regression line will be fit onto both graphs.
 
-```{r plot prep, include = F}
-library(tidyverse)
-risktol = read_tsv('/wdata/cries/career_proj/biol-4386-course-project-clries_backup/data/input_data/LDPred2/adhd-PGC-2019ancestry_adjusted_pgs.tsv')
+##Result
 
-jobdat = read_tsv('/wdata/cries/career_proj/biol-4386-course-project-clries_backup/data/input_data/ukb_job_data.tsv')
+Since I changed my project very last minute before hw3 was due, I don't have any results yet! I hope to make time early in the week to fill this section with a snippet of what my wrangled data looks like, so that my peer reviewers have something to work with. Ideally, by the end of next week, I will also have my graphs made. I will also update my github repo because I will need different R scripts to complete this project as compared to my last one!
 
-map = read_tsv('/wdata/lcasten/ukbb/imaging/field.tsv')
+## References
 
-to_match = names(jobdat)[str_detect(names(jobdat), pattern = '[0-9]')]
-df_match = data.frame(original_variable = to_match) %>%
-  mutate(num = str_sub(original_variable, start = 2, end = -1),
-         num = str_split(num, pattern = '_', simplify = T)[,1],
-         field_id = as.numeric(num))
-clergy = jobdat %>%
-  mutate(clergy_binary = case_when(job == 'clergyman/woman; any religious officer/leader' ~ 1,
-                                  TRUE ~ 0)
-  ) %>%
-  rename(IID = eid)
-table(clergy$clergy_binary)
-
-wd_clergy = risktol %>%
-  inner_join(clergy)
-```
-
-
-```{r plot}
-wd_clergy %>%
-  ggplot(aes(x = as.factor(clergy_binary), y = resid_pgs)) +
-  geom_boxplot() +
-  geom_hline(yintercept = 0, color = 'red') +
-  labs(title = 'Genetic Propensity for Risk Tolerance in Religious Leaders',
-       x = 'Job', y = 'Risk Tolerance PGS') +
-  theme(text = element_text(size = 25), axis.text = element_text(size = 20)) +
-  scale_x_discrete(breaks=c('0','1'), labels=c('all jobs', 'religious leader'))
-t.test(wd_clergy$resid_pgs ~ wd_clergy$clergy_binary) 
-```
-
-
-This figure is an example of a box plot I created comparing the polygenic 
-scores for risk tolerance in religious leaders versus the entire employed 
-cohort. This is one of my most interesting finds so far, because it shows 
-that people who are religious leaders tend to have a lower genetic propensity 
-for taking risks than the population. This is also statistically significant. 
-My final box plot(s) will look similar to this one, but the resulting figure 
-might also be a figure of several similar boxplots. The only difference is that 
-in the final figure, the x axis will be a binary comparison of whether or not someone is satisfied with their job.
-
-
-
-### Materials and Methods
-Individuals were genotyped using the UKBiobank Axiom array. Genotypes were then imputed using the Haplotype Reference Consortium (HRC) and UK10K haplotype resource. The cohort for this project was limited to individuals who identified as currently employed at the time of the job satisfaction survey (2008?). Most recent job was used for the purposes of this project.
-Polygenic scores were calculated using LDPred2 from publicly available GWAS summary statistics^3,4,5^ and corrected for genetic ancestry using the first ten principal components (PCs).
-PGS were correlated using Pearson's method with job data from currently employed UKBiobank participants using the cor.test() function in R.
-Box plots comparing the PGS of a particular career subset to all respondents were created using ggplot. 
-(Everything up until here has already been done.)
-I will pick the most notable cases to reference during the next steps.
-Correlations and box plots will be made between PGS and job satisfaction of the employed UKBiobank cohort generally. Then, I will subset the cohort to the careers in the notable cases from earlier, and again correlate PGS and job satisfaction and create box plots. (The most interesting box plot will be used as my final graph, but there are many graphs that can be made along the way in case I cannot complete it this far. I will likely be able to create multiple plots. If I have time, I might make a forest plot to account for interactions between phenotypes.)
-
-#### References
-1. Simon Kyaga, Mikael Landén, Marcus Boman, Christina M. Hultman, Niklas Långström, Paul Lichtenstein, Mental illness, suicide and creativity: 40-Year prospective total population study, Journal of Psychiatric Research, Volume 47, Issue 1, 2013, Pages 83-90, ISSN 0022-3956, https://doi.org/10.1016/j.jpsychires.2012.09.010. (https://www.sciencedirect.com/science/article/pii/S0022395612002804)
-
-2. Wesseldijk, L.W., Ullén, F. & Mosing, M.A. The effects of playing music on mental health outcomes. Sci Rep 9, 12606 (2019). https://doi.org/10.1038/s41598-019-49099-9
-
-3. Day, F.R., Ong, K.K. & Perry, J.R.B. Elucidating the genetic basis of social interaction and isolation. Nat Commun 9, 2457 (2018). https://doi.org/10.1038/s41467-018-04930-1
-
-4. Karlsson Linnér, R., Biroli, P., Kong, E. et al. Genome-wide association analyses of risk tolerance and risky behaviors in over 1 million individuals identify hundreds of loci and shared genetic influences. Nat Genet 51, 245–257 (2019). https://doi.org/10.1038/s41588-018-0309-3
-
-5. Lee JJ, Wedow R, Okbay A, et al. Gene discovery and polygenic prediction from a genome-wide association study of educational attainment in 1.1 million individuals. Nat Genet. 2018;50(8):1112-1121. Published 2018 Jul 23. doi:10.1038/s41588-018-0147-3
+1. Andreasen NC. The relationship between creativity and mood disorders. Dialogues Clin Neurosci. 2008;10(2):251-255. doi:10.31887/DCNS.2008.10.2/ncandreasen
+2. Power, R., Steinberg, S., Bjornsdottir, G. et al. Polygenic risk scores for schizophrenia and bipolar disorder predict creativity. Nat Neurosci 18, 953–955 (2015). https://doi.org/10.1038/nn.4040
+3. Mullins, N., Forstner, A.J., O’Connell, K.S. et al. Genome-wide association study of more than 40,000 bipolar disorder cases provides new insights into the underlying biology. Nat Genet 53, 817–829 (2021). https://doi.org/10.1038/s41588-021-00857-4
+4. Kim, H., Ahn, Y., Yoon, J., Jung, K., Kim, S., Shim, I., Park, T. H., Ko, H., Jung, S.-H., Kim, J., Park, S., Lee, D. J., Choi, S., Cha, S., Kim, B., Cho, M. Y., Cho, H., Kim, D. S., Ihm, H. K., … Won, H.-H. (2022). Genetic architecture of creativity and extensive genetic overlap with psychiatric disorders revealed from genome-wide association analyses of 241,736 individuals. https://doi.org/10.1101/2022.07.25.501322
