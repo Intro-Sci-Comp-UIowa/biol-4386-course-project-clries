@@ -37,8 +37,12 @@ final <- all_dat %>%
                              job_sat == 'Very unhappy' ~ 1,
                              job_sat == 'Extremely unhappy' ~ 0)
   )
-
+##### save a little chunk for the github
 final %>%
   select(-c(IID)) %>%
   filter(creative != 0) %>%
   write_csv('/wdata/cries/career_proj/tmp/biol-4386-course-project-clries/dat_subset.csv')
+
+#### save all for project analysis
+final %>%
+  write_csv('/wdata/cries/career_proj/tmp/biol-4386-course-project-clries/pgs_sat_data.csv')
