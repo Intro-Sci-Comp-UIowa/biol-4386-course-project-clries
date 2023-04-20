@@ -3,6 +3,7 @@ title: "README.Rmd"
 author: "Courtney Ries"
 date: '2023-03-23'
 output:
+  pdf_document: default
   html_document: default
 ---
 
@@ -30,4 +31,4 @@ knitr::include_graphics("draft_plot.png")
 2. Power, R., Steinberg, S., Bjornsdottir, G. et al. Polygenic risk scores for schizophrenia and bipolar disorder predict creativity. Nat Neurosci 18, 953–955 (2015). https://doi.org/10.1038/nn.4040
 3. Mullins, N., Forstner, A.J., O’Connell, K.S. et al. Genome-wide association study of more than 40,000 bipolar disorder cases provides new insights into the underlying biology. Nat Genet 53, 817–829 (2021). https://doi.org/10.1038/s41588-021-00857-4
 4. Kim, H., Ahn, Y., Yoon, J., Jung, K., Kim, S., Shim, I., Park, T. H., Ko, H., Jung, S.-H., Kim, J., Park, S., Lee, D. J., Choi, S., Cha, S., Kim, B., Cho, M. Y., Cho, H., Kim, D. S., Ihm, H. K., … Won, H.-H. (2022). Genetic architecture of creativity and extensive genetic overlap with psychiatric disorders revealed from genome-wide association analyses of 241,736 individuals. https://doi.org/10.1101/2022.07.25.501322
-5. 
+5. Bakhshi, H., Frey, C.B. & Osborne, M. Creativity vs. robots. The Creative Economy and The Future of Employment. Nesta, London (2015).
