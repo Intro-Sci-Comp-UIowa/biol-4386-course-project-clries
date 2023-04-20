@@ -8,7 +8,7 @@ Job type, job satisfaction, and genotype data were collected from 32,346 individ
 
 ## Results
 
-![graph](draft_plot.png)
+![graph](Results/draft_plot.png)
 
 ## References
 

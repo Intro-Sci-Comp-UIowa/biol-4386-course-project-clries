@@ -11,7 +11,7 @@ Individuals were required to be employed in 2010 and have job satisfaction data 
 * 'start' describes the start year of the job listed. 
 * 'creative' assigns score 1 for top creative jobs, -1 for least creative jobs, and 0 otherwise. 
 * 'adj_pgs' is the individual's calculated polygenic risk score for Bipolar I or II.
-* 'sexMale' defines male participants as 1.
+* 'sexMale' defines male participants as 1 and female participants as 0.
 * 'job_sat' provides a participant's level of job satisfaction:
     0-  Extremely unhappy
     1- Very unhappy
