@@ -35,13 +35,19 @@ lm(job_sat ~ adj_pgs + sexMale + array + start, data = medium)
 
 #plot without 'other'
 noother <- dat %>% filter(creative != 0)
-noother %>% ggplot(aes(x = adj_pgs, y = job_sat)) +
+
+noother %>% 
+  mutate(job_sat_z = scale(job_sat)[,1]) %>%
+  ggplot(aes(x = adj_pgs, y = job_sat_z)) +
   geom_jitter(alpha = 0.5, color = '#B2182B') + 
   geom_smooth(method = 'lm', color = '#2166AC') +
-  facet_wrap(~creative, labeller = labeller(creative = new_label), scales = 'free_y') +
-  labs(y = 'Job Satisfaction', x = 'Bipolar Disorder Polygenic Risk Score', title = 'Bipolar Risk and Job Satisfaction in Creative Careers') +
+  geom_hline(yintercept = 0, color = 'chocolate1', linetype = 'dashed', size = 1.05) +
+  facet_wrap(~creative, labeller = labeller(creative = new_label)) +
+  labs(y = 'Job Satisfaction Z-Score', x = 'Bipolar Disorder Polygenic Risk Score', title = 'Bipolar Risk and Job Satisfaction in Creative Careers') +
   theme_bw() +
   theme(strip.text = element_text(face = 'bold', size = 15), 
         plot.title = element_text(hjust = 0.5, size = 25),
-        axis.title = element_text(size = 20),
+        axis.title = element_text(size = 18),
         axis.text = element_text(size = 15))
+
+
