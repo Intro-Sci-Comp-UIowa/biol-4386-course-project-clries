@@ -13,9 +13,9 @@ Individuals were required to be employed in 2010 and have job satisfaction data 
 * 'adj_pgs' is the individual's calculated polygenic risk score for Bipolar I or II.
 * 'sexMale' defines male participants as 1.
 * 'job_sat' provides a participant's level of job satisfaction:
-	0. Extremely unhappy
-	1. Very unhappy
-	2. Moderately unhappy
-	3. Moderately happy
-	4. Very happy
-	5. Extremely happy
+    0. Extremely unhappy
+    1. Very unhappy
+    2. Moderately unhappy
+    3. Moderately happy
+    4. Very happy
+    5. Extremely happy
