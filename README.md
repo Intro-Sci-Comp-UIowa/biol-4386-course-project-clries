@@ -10,6 +10,9 @@ Job type, job satisfaction, and genotype data were collected from 32,346 individ
 
 ![graph](Results/draft_plot.png)
 
+A comparison of the PRS for bipolar disorder and reported job satisfaction, converted to a z-score, in indiviudals with highly creative jobs versus low-creativity jobs.
+A horizonal line at average job satisfaction is given for comparison. When compared to this line, those with low creativity jobs have a negative association between the two, while those with highly creative jobs have a positive association.
+
 ## References
 
 1. Andreasen NC. The relationship between creativity and mood disorders. Dialogues Clin Neurosci. 2008;10(2):251-255. doi:10.31887/DCNS.2008.10.2/ncandreasen

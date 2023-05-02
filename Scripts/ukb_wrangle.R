@@ -2,16 +2,25 @@ library(tidyverse)
 p = read_tsv('/wdata/cries/career_proj/biol-4386-course-project-clries_backup/data/input_data/ukb_job_data.tsv')
 jobs <- p %>% 
   select(c(eid, array, job, start)) %>%
-  mutate(creative = case_when(str_detect(string = job, pattern = "archit|draught|auth|reporter|music|dancer|entertain|singer|artist|arts|cartoon|painter") == TRUE ~ 1,
-                              str_detect(string = job, pattern = "farm|factory|horticult|plumb|food worker|road transport/traffic clerk|care assist") == TRUE ~ -1,
-                              TRUE ~ 0)
-         ) %>%
+  mutate(creative = case_when(str_detect(string = job, pattern = "artist|music|graphic|actor,|entertain|architect|dancer|dancing|arts officer|design|
+                                         public relations|journal|editor|statistician|social science|geographer|writer|it strategy|it manager|
+                                         it user|it oper|callig|glass|cerami|archiv|marketing|second|draughts|physic|town planner|
+                                         civil engineer|vocational or|vocational t|photog|software|librarian|higher ed|quality control eng|
+                                         design and development eng|electrical eng|quantity surveyor|teacher|further ed|chem|conservation|
+                                         environment|bio") == TRUE ~ 1,
+                          #    str_detect(string = job, pattern = ) == TRUE ~ -1,
+                              TRUE ~ 0)) %>%
   rename(IID = eid)
-  # select(creative) %>% table()
 
-                              # job == contains('archit|draught|auth|reporter,|music|dancer|entertain|singer|artist|arts|cartoon|painter,')) ~ 1,
-                              # TRUE ~ 0) %>%
-
+p %>% 
+  select(job) %>%
+  filter(str_detect(string = job, pattern = "artist|music|graphic|actor,|entertain|architect|dancer|dancing|arts officer|design|
+                                         public relations|journal|editor|statistician|social science|geographer|writer|it strategy|it manager|
+                                         it user|it oper|callig|glass|cerami|archiv|marketing|second|draughts|physic|town planner|
+                                         civil engineer|vocational or|vocational t|photog|software|librarian|higher ed|quality control eng|
+                                         design and development eng|electrical eng|quantity surveyor|teacher|further ed|chem|conservation|
+                                         environment|bio")) %>% unique() %>%
+  write_csv('/wdata/cries/career_proj/tmp/biol-4386-course-project-clries/creative_jobs.csv')
   
   #### polygenic scores ####
   file = '/wdata/lcasten/ukbb/imaging/LDPred2/LDPred2_gathered_resid_scores_w_covar.csv'
