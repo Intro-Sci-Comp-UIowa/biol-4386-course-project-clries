@@ -1,8 +1,13 @@
 ## DATA
 Data was taken from the UK Biobank.
-5,260 individuals--111 creative, 121 non-creative.
+5,260 individuals--716 creative, 716 non-creative.
 Individuals were required to be employed in 2010 and have job satisfaction data in order to be included in the dataset.
+The full data is included in pgs_sat_data.csv.
+A subset of this data only including participants with jobs marked as creative or noncreative is included as dat_subset.csv, in order for important data to be 'beautiful and searchable' in github.
 
+#### Creative vs. Non-creative careers
+The list of UKB jobs defined as 'noncreative' is stored in noncreative_jobs.tsv.
+The list of UKB jobs defined as 'creative' is stored in creative_jobs.csv.
 
 #### Data Dictionary
 * 'IID' is an individual identifier. It has been removed from this dataset for privacy.
