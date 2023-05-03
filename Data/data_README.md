@@ -5,6 +5,11 @@ Individuals were required to be employed in 2010 and have job satisfaction data 
 The full data is included in pgs_sat_data.csv.
 A subset of this data only including participants with jobs marked as creative or noncreative is included as dat_subset.csv, in order for important data to be 'beautiful and searchable' in github.
 
+#### Data access
+All job and job satisfaction data, as well as other participant data, can be downloaded from the UKBiobank with permissions. 
+Unfortunately, PRS were calculated in-lab (by Taylor Thomas) and due to UK privacy laws cannot be published in full for access on this page.
+See 'Methods' in the README.md file and the associated references to reproduce these PRS.
+
 #### Creative vs. Non-creative careers
 The list of UKB jobs defined as 'noncreative' is stored in noncreative_jobs.tsv.
 The list of UKB jobs defined as 'creative' is stored in creative_jobs.csv.
