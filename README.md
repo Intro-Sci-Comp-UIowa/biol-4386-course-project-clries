@@ -8,7 +8,7 @@ Job type, job satisfaction, and genotype data were collected from 32,346 individ
 
 ## Results
 
-![graph](Results/draft_plot.png)
+![graph](Results/yes_midlevel.png)
 
 A comparison of the PRS for bipolar disorder and reported job satisfaction, converted to a z-score, in indiviudals with highly creative jobs versus low-creativity jobs.
 A horizonal line at average job satisfaction is given for comparison. When compared to this line, those with low creativity jobs have a negative association between the two, while those with highly creative jobs have a positive association.
